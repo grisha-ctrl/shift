@@ -2,10 +2,10 @@ package by.shift.task2.core.model.impl;
 
 import by.shift.task2.core.model.FileData;
 import by.shift.task2.core.model.annotation.Figure;
-import by.shift.task2.core.model.Calculation;
+import by.shift.task2.core.model.Calculator;
 
 @Figure
-public class Rectangle implements Calculation {
+public class Rectangle implements Calculator {
 
     @Override
     public void calculate(FileData fileData) {

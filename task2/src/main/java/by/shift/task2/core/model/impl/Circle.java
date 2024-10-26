@@ -2,10 +2,10 @@ package by.shift.task2.core.model.impl;
 
 import by.shift.task2.core.model.FileData;
 import by.shift.task2.core.model.annotation.Figure;
-import by.shift.task2.core.model.Calculation;
+import by.shift.task2.core.model.Calculator;
 
 @Figure
-public class Circle implements Calculation {
+public class Circle implements Calculator {
 
     @Override
     public void calculate(FileData fileData ) {
@@ -21,7 +21,7 @@ public class Circle implements Calculation {
         System.out.println("четатам " + diameter + " " + fileData.getType() + " " + r + " " + perimeter + " " + square);
     }
 
-    @Override// вынести в другой интерфейс
+    @Override
     public boolean isSuitable(String name) {
 
         return name.equals("Circle");

@@ -1,31 +1,15 @@
 package by.shift.task2;
-import by.shift.task2.core.model.Calculation;
-import by.shift.task2.core.model.FileData;
-import by.shift.task2.core.utils.DataReaderUtils;
-import by.shift.task2.core.model.impl.Circle;
-import by.shift.task2.core.model.impl.Rectangle;
-import by.shift.task2.core.model.impl.Triangle;
 
-import java.util.ArrayList;
-import java.util.List;
+import by.shift.task2.core.model.Context;
+import by.shift.task2.core.service.Service;
 
+import java.io.File;
 
 public class Main {
-    public static void main(String[] args) {
-        FileData fileData = DataReaderUtils.read("file");
-        List<Calculation> figures = new ArrayList<>();
-        figures.add(new Circle());
-        figures.add(new Rectangle());
-        figures.add(new Triangle());
-
-        String type = fileData.getType();
-        for (Calculation figure: figures) {
-            if (figure.isSuitable(type)){
-                figure.calculate(fileData);
-                break;
-            }
-        }
-
+    public static void main(String[] args){
+        File dir = new File("C:\\Users\\GRISHKA_UBICA_RUS76\\IdeaProjects\\shift\\task2\\src\\main\\java\\by\\shift\\task2\\core\\model");
+        Context.setUp(dir);
+        Service service = new Service();
+        service.service();
     }
-
 }
