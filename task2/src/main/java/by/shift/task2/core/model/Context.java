@@ -26,23 +26,19 @@ public class Context {
                 line = line.trim();
 
                 if (line.startsWith("package ")) {
-                    packageName = line.substring(8, line.length() - 1).trim(); // Get the package name
+                    packageName = line.substring(8, line.length() - 1).trim();
                 }
-
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
-
         return packageName + "." + child.getName().substring(0, child.getName().length() -5);
     }
 
     public static void setUp(File dir) {
-
         File[] directoryListing = dir.listFiles();
         List<Calculator> result = new ArrayList<>();
         try {
-
             if (directoryListing != null) {
                 for (File child : directoryListing) {
                     if (child.isDirectory()){
@@ -55,13 +51,11 @@ public class Context {
                             if ( object instanceof Calculator){
                                 result.add((Calculator) object);
                             }
-
                         }
                     }
                 }
             }
             FIGURES.addAll(result);
-
         }
         catch (Exception e){
             log.error(e.getMessage());

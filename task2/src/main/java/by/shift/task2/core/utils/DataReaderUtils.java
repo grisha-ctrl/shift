@@ -3,14 +3,14 @@ package by.shift.task2.core.utils;
 import by.shift.task2.core.model.FileData;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-
+import lombok.extern.slf4j.Slf4j;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DataReaderUtils {
-
     public static FileData read(String filePath) {
         FileData fileData = FileData.builder().build();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -21,7 +21,7 @@ public class DataReaderUtils {
                     .parameters(parameters)
                     .build();
         } catch (IOException e) {
-            System.out.println("zxc");
+            log.error(e.getMessage());
         }
         return fileData;
     }
