@@ -5,6 +5,9 @@ import by.shift.task2.core.model.Result;
 import by.shift.task2.core.model.annotation.Figure;
 import by.shift.task2.core.model.Calculator;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Figure
 public class Rectangle implements Calculator {
 
@@ -19,15 +22,13 @@ public class Rectangle implements Calculator {
         double square = sideA * sideB;
         double diagonal = Math.sqrt(sideA*sideA+sideB*sideB);
 
-        String builder = "Тип фигуры: Прямоугольник" + System.getProperty("line.separator") +
-                "Площадь: " + square + System.getProperty("line.separator") +
-                "Периметр: " + perimeter + System.getProperty("line.separator") +
-                "Ширина: " + sideA + System.getProperty("line.separator") +
-                "Длина: " + sideB + System.getProperty("line.separator") +
-                "Длина диагонали: " + diagonal;
-
-        System.out.println(builder);
-        return null;
+        Map<String,String> map = new LinkedHashMap<>();
+        map.put("Площадь",String.valueOf(square));
+        map.put("Периметр", String.valueOf(perimeter));
+        map.put("Сторона A", String.valueOf(sideA));
+        map.put("Сторона B", String.valueOf(sideB));
+        map.put("Диагональ", String.valueOf(diagonal));
+        return new Result("Прямоугольник", map );
     }
 
     @Override

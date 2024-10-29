@@ -5,23 +5,24 @@ import by.shift.task2.core.model.Result;
 import by.shift.task2.core.model.annotation.Figure;
 import by.shift.task2.core.model.Calculator;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Figure
 public class Circle implements Calculator {
-
+// приватный метод который проверяет fileData на количество параметров в строке parameters
     @Override
     public Result calculate(FileData fileData) {
         double radius = Integer.parseInt(fileData.getParameters());
         double perimeter = 2 * Math.PI * radius;
         double square = Math.PI * radius * radius;
         double diameter = radius + radius;
-        StringBuilder builder = new StringBuilder();
-        builder.append("Тип фигуры: Круг").append(System.getProperty("line.separator"));
-        builder.append("Площадь: ").append(square).append(System.getProperty("line.separator"));
-        builder.append("Периметр: ").append(perimeter).append(System.getProperty("line.separator"));
-        builder.append("Радиус: ").append(radius).append(System.getProperty("line.separator"));
-        builder.append("Диаметр: ").append(diameter).append(System.getProperty("line.separator"));
-        System.out.println(builder);
-        return null;
+        Map<String,String> map = new LinkedHashMap<>();
+        map.put("Площадь: ",String.valueOf(square));
+        map.put("Периметр: ", String.valueOf(perimeter));
+        map.put("Диаметр: ",String.valueOf(diameter));
+        map.put("Радиус: ",String.valueOf(radius));
+        return new Result("Круг", map );
     }
 
     @Override

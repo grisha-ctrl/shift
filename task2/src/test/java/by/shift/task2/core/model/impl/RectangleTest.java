@@ -8,31 +8,31 @@ import org.junit.jupiter.api.Test;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-class TriangleTest {
+class RectangleTest {
 
     @Test
     void calculate() {
         FileData fileData = FileData.builder()
-                .type("Triangle")
-                .parameters("3 4 5 6 7 8")
+                .type("Rectangle")
+                .parameters("3 4")
                 .build();
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("Площадь", "6.0");
-        map.put("Периметр", "12.0");
-        map.put("Сторона А и противолежащий угол", "3 0.6435011087932843");
-        map.put("Сторона B и противолежащий угол", "4 0.9272952180016123");
-        map.put("Сторона C и противолежащий угол", "5 1.5707963267948966");
-        Result expected = new Result("Треугольник", map);
-        Calculator triangle = new Triangle();
-        Result actual = triangle.calculate(fileData);
+        map.put("Площадь", "12.0");
+        map.put("Периметр", "14.0");
+        map.put("Сторона A", "3");
+        map.put("Сторона B", "4");
+        map.put("Диагональ", "5.0");
+        Result expected = new Result("Прямоугольник", map);
+        Calculator rectangle = new Rectangle();
+        Result actual = rectangle.calculate(fileData);
         Assertions.assertThat(actual).isEqualToComparingFieldByField(expected);
     }
 
     @Test
     void isSuitable() {
         FileData fileData = FileData.builder()
-                .type("Triangle")
-                .parameters("3 4 5")
+                .type("Rectangle")
+                .parameters("3 4")
                 .build();
         Calculator rectangle = new Rectangle();
         boolean actual = rectangle.isSuitable(fileData.getType());
@@ -43,7 +43,7 @@ class TriangleTest {
     void isNotSuitable(){
         FileData fileData = FileData.builder()
                 .type("Circle")
-                .parameters("3 4 5")
+                .parameters("3 4")
                 .build();
         Calculator rectangle = new Rectangle();
         boolean actual = rectangle.isSuitable(fileData.getType());

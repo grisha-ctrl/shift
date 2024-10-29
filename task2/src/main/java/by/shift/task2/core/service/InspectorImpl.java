@@ -9,6 +9,8 @@ import by.shift.task2.core.utils.DataReaderUtils;
 import java.util.List;
 //вернуть резалт
 public class InspectorImpl implements Inspector {
+    //почитать про mockito как им пользоваться и зачем он нужен
+    //посмотреть как замокать статик методы
     @Override
     public void inspect(String path) {
         FileData fileData = DataReaderUtils.read(path);
