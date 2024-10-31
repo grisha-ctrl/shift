@@ -14,7 +14,7 @@ class TriangleTest {
     void calculate() {
         FileData fileData = FileData.builder()
                 .type("Triangle")
-                .parameters("3 4 5 6 7 8")
+                .parameters("3 4 5")
                 .build();
         Map<String, String> map = new LinkedHashMap<>();
         map.put("Площадь", "6.0");

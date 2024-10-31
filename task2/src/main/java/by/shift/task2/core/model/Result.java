@@ -13,9 +13,13 @@ public class Result {
 
     @Override
     public String toString() {
-        return "Result{" +
-                "name='" + name + '\'' +
-                ", map=" + map +
-                '}';
+        StringBuilder result = new StringBuilder();
+        result.append("Фигура: ").append(name).append("\n");
+
+        map.forEach((key, value) -> {
+            result.append(key).append(": ").append(value).append("\n");
+        });
+
+        return result.toString();
     }
 }

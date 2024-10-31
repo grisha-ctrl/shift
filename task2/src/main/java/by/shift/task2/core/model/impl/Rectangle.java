@@ -20,15 +20,15 @@ public class Rectangle implements Calculator {
 
         double perimeter = (sideA * 2) + (sideB * 2);
         double square = sideA * sideB;
-        double diagonal = Math.sqrt(sideA*sideA+sideB*sideB);
+        double diagonal = Math.sqrt(sideA * sideA + sideB * sideB);
 
-        Map<String,String> map = new LinkedHashMap<>();
-        map.put("Площадь",String.valueOf(square));
-        map.put("Периметр", String.valueOf(perimeter));
-        map.put("Сторона A", String.valueOf(sideA));
-        map.put("Сторона B", String.valueOf(sideB));
-        map.put("Диагональ", String.valueOf(diagonal));
-        return new Result("Прямоугольник", map );
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("Площадь", square + " кв. мм");
+        map.put("Периметр", perimeter + " мм");
+        map.put("Сторона A", sideA + " мм");
+        map.put("Сторона B", sideB + " мм");
+        map.put("Диагональ", diagonal + " мм");
+        return new Result("Прямоугольник", map);
     }
 
     @Override

@@ -4,6 +4,7 @@ import by.shift.task2.core.model.FileData;
 import by.shift.task2.core.model.Result;
 import by.shift.task2.core.model.annotation.Figure;
 import by.shift.task2.core.model.Calculator;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -22,17 +23,18 @@ public class Triangle implements Calculator {
         double sqrt = halfPerimeter * ((halfPerimeter - sideA) * (halfPerimeter - sideB) * (halfPerimeter - sideC));
         double square = Math.sqrt(sqrt);
 
-        double cornerA = Math.acos((double) ((sideB*sideB)+(sideC*sideC)-(sideA*sideA))/(2*sideB*sideC));
-        double cornerB = Math.acos((double) ((sideA*sideA)+(sideC*sideC)-(sideB*sideB))/(2*sideA*sideC));
-        double cornerC = Math.acos((double) (sideB*sideB+sideA*sideA-sideC*sideC)/2*sideB*sideA);
 
-        Map<String,String> map = new LinkedHashMap<>();
-        map.put("Площадь",String.valueOf(square));
-        map.put("Периметр", String.valueOf(perimeter));
-        map.put("Сторона А и противолежащий угол", sideA + " " + cornerA);
-        map.put("Сторона B и противолежащий угол", sideB + " " + cornerB);
-        map.put("Сторона C и противолежащий угол", sideC + " " + cornerC);
-        return new Result("Треугольник", map );
+        double cornerA = Math.toDegrees(Math.acos((double) ((sideB * sideB) + (sideC * sideC) - (sideA * sideA)) / (2 * sideB * sideC)));
+        double cornerB = Math.toDegrees(Math.acos((double) ((sideA * sideA) + (sideC * sideC) - (sideB * sideB)) / (2 * sideA * sideC)));
+        double cornerC = Math.toDegrees(Math.acos((double) ((sideB * sideB) + (sideA * sideA) - (sideC * sideC)) / (2 * sideB * sideA)));
+
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("Площадь", square + " кв. мм");
+        map.put("Периметр", perimeter + " мм");
+        map.put("Сторона А", sideA + " мм " + "и противолежащий угол: " + cornerA + " градусов");
+        map.put("Сторона B", sideB + " мм " + "и противолежащий угол: " + cornerB + " градусов");
+        map.put("Сторона C", sideC + " мм " + "и противолежащий угол: " + cornerC + " градусов");
+        return new Result("Треугольник", map);
     }
 
     @Override

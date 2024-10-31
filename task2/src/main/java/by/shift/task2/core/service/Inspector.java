@@ -1,5 +1,8 @@
 package by.shift.task2.core.service;
+
+import by.shift.task2.core.model.Result;
+
 //
 public interface Inspector {
-    void inspect(String path);
+    Result inspect(String path);
 }

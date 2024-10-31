@@ -22,6 +22,7 @@ public class DataReaderUtils {
                     .build();
         } catch (IOException e) {
             log.error(e.getMessage());
+            throw new RuntimeException(e.getMessage(), e.getCause());
         }
         return fileData;
     }
