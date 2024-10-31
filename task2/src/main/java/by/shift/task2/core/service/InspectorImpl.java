@@ -11,7 +11,6 @@ public class InspectorImpl implements Inspector {
 
     @Override
     public Result inspect(String path) {
-        Result result = null;
         FileData fileData = DataReaderUtils.read(path);
         List<Calculator> figures = Context.getFigures();
         for (Calculator figure : figures) {
@@ -19,6 +18,6 @@ public class InspectorImpl implements Inspector {
                  return figure.calculate(fileData);
             }
         }
-        return result;
+        return null;
     }
 }
