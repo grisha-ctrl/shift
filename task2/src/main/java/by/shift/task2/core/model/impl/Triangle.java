@@ -29,12 +29,12 @@ public class Triangle implements Calculator {
         double cornerC = Math.toDegrees(Math.acos((double) ((sideB * sideB) + (sideA * sideA) - (sideC * sideC)) / (2 * sideB * sideA)));
 
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("Площадь", square + " кв. мм");
-        map.put("Периметр", perimeter + " мм");
-        map.put("Сторона А", sideA + " мм " + "и противолежащий угол: " + cornerA + " градусов");
-        map.put("Сторона B", sideB + " мм " + "и противолежащий угол: " + cornerB + " градусов");
-        map.put("Сторона C", sideC + " мм " + "и противолежащий угол: " + cornerC + " градусов");
-        return new Result("Треугольник", map);
+        map.put("Square", square + " sq. mm");
+        map.put("Perimeter", perimeter + " mm");
+        map.put("Side A", sideA + " mm " + "and the opposite angle: " + cornerA + " degrees");
+        map.put("Side B", sideB + " mm " + "and the opposite angle: " + cornerB + " degrees");
+        map.put("Side C", sideC + " mm " + "and the opposite angle: " + cornerC + " degrees");
+        return new Result("Triangle", map);
     }
 
     @Override

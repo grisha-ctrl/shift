@@ -23,12 +23,12 @@ public class Rectangle implements Calculator {
         double diagonal = Math.sqrt(sideA * sideA + sideB * sideB);
 
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("Площадь", square + " кв. мм");
-        map.put("Периметр", perimeter + " мм");
-        map.put("Сторона A", sideA + " мм");
-        map.put("Сторона B", sideB + " мм");
-        map.put("Диагональ", diagonal + " мм");
-        return new Result("Прямоугольник", map);
+        map.put("Square", square + " sq. mm");
+        map.put("Perimeter", perimeter + " mm");
+        map.put("Side A", sideA + " mm");
+        map.put("Side B", sideB + " mm");
+        map.put("Diagonal", diagonal + " mm");
+        return new Result("Rectangle", map);
     }
 
     @Override

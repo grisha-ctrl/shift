@@ -17,38 +17,31 @@ import java.util.Map;
 @Figure
 public class Circle implements Calculator {
 
-    private boolean hasSingleParameter(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            reader.readLine();
+    private boolean hasSingleParameter(FileData fileData) {
 
-            String parametersLine = reader.readLine();
-            if (parametersLine == null) {
-                return false;
-            }
-
-            String[] parameters = parametersLine.trim().split("\\s+");
-
-            return parameters.length == 1;
-        } catch (IOException e) {
-            log.error(e.getMessage());
+        String parameters = fileData.getParameters();
+        if (parameters == null) {
             return false;
         }
+
+        return parameters.trim().split(" ").length == 1;
     }
 
-    // приватный метод который проверяет fileData на количество параметров в строке parameters
     @Override
     public Result calculate(FileData fileData) {
-
+        if (!hasSingleParameter(fileData)){
+            throw new RuntimeException("Circle should have only one parameter");
+        }
         double radius = Integer.parseInt(fileData.getParameters());
         double perimeter = 2 * Math.PI * radius;
         double square = Math.PI * radius * radius;
         double diameter = radius + radius;
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("Площадь", square + " кв. мм");
-        map.put("Периметр", perimeter + " мм");
-        map.put("Диаметр", diameter + " мм");
-        map.put("Радиус", radius + " мм");
-        return new Result("Круг", map);
+        map.put("Square", square + " sq. mm");
+        map.put("Perimeter", perimeter + " mm");
+        map.put("Diameter", diameter + " mm");
+        map.put("Radius", radius + " mm");
+        return new Result("Circle", map);
     }
 
     @Override

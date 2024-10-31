@@ -1,5 +1,7 @@
 package by.shift.task2.core.model;
 import by.shift.task2.core.model.annotation.Figure;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Context {
     private static final List<Calculator> FIGURES = new ArrayList<>();
     public static List<Calculator> getFigures(){

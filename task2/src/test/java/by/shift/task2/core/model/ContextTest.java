@@ -30,13 +30,11 @@ class ContextTest {
             List<Calculator> expected = new ArrayList<>();
 
             Calculator testClassFirst = new TestClassFirst();
-            Calculator firstObject = testClassFirst.getClass().getDeclaredConstructor().newInstance();
 
             Calculator testClassSecond = new TestClassSecond();
-            Calculator secondObject = testClassSecond.getClass().getDeclaredConstructor().newInstance();
 
-            expected.add(firstObject);
-            expected.add(secondObject);
+            expected.add(testClassFirst);
+            expected.add(testClassSecond);
 
             List<Calculator> actual = Context.getFigures();
 
