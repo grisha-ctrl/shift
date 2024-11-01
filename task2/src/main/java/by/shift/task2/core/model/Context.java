@@ -52,6 +52,7 @@ public class Context {
                             Constructor<?> constructor = clazz.getDeclaredConstructor();
                             Object object = constructor.newInstance();
                             if ( object instanceof Calculator){
+                                log.info("Add object to result " + object);
                                 result.add((Calculator) object);
                             }
                         }

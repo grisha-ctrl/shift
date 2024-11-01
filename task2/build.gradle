@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'ru.cft'
+group 'by.shift'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -12,7 +12,8 @@ repositories {
 dependencies {
     testImplementation 'org.mockito:mockito-core:5.8.0'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.16'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.16'
     annotationProcessor 'org.projectlombok:lombok:1.18.32'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.32'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'

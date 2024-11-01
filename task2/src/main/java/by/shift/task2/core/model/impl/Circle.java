@@ -6,10 +6,6 @@ import by.shift.task2.core.model.annotation.Figure;
 import by.shift.task2.core.model.Calculator;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -47,5 +43,10 @@ public class Circle implements Calculator {
     @Override
     public boolean isSuitable(String name) {
         return name.equals("Circle");
+    }
+
+    @Override
+    public String toString() {
+        return "Circle";
     }
 }

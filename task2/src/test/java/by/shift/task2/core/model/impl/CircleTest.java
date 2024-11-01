@@ -5,13 +5,16 @@ import by.shift.task2.core.model.FileData;
 import by.shift.task2.core.model.Result;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CircleTest {
 
     @Test
-    void calculate() {
+    void calculateWithOneParameter() {
         FileData fileData = FileData.builder()
                 .type("Circle")
                 .parameters("3")
@@ -28,6 +31,33 @@ class CircleTest {
     }
 
     @Test
+    void calculateWithMultipleParameters() {
+        FileData fileData = FileData.builder()
+                .type("Circle")
+                .parameters("3 4 5 6")
+                .build();
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            Calculator circle = new Circle();
+            circle.calculate(fileData);
+        });
+        Assertions.assertThat("Circle should have only one parameter").isEqualTo(exception.getMessage());
+    }
+    @Test
+    void calculateWithNullParameters() {
+        FileData fileData = FileData.builder()
+                .type("Circle")
+                .parameters(null)
+                .build();
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            Calculator circle = new Circle();
+            circle.calculate(fileData);
+        });
+        Assertions.assertThat("Circle should have only one parameter").isEqualTo(exception.getMessage());
+    }
+
+    @Test
     void isSuitable() {
         FileData fileData = FileData.builder()
                 .type("Circle")
@@ -39,7 +69,7 @@ class CircleTest {
     }
 
     @Test
-    void isNotSuitable(){
+    void isNotSuitable() {
         FileData fileData = FileData.builder()
                 .type("Triangle")
                 .parameters("3")

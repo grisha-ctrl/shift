@@ -10,8 +10,20 @@ import java.util.Map;
 
 @Figure
 public class Triangle implements Calculator {
+    private boolean hasThreeParameters(FileData fileData) {
+
+        String parameters = fileData.getParameters();
+        if (parameters == null) {
+            return false;
+        }
+
+        return parameters.trim().split(" ").length == 3;
+    }
     @Override
     public Result calculate(FileData fileData) {
+        if (!hasThreeParameters(fileData)){
+            throw new RuntimeException("Circle should have only three parameters");
+        }
         String[] numberStrings = fileData.getParameters().split(" ");
 
         int sideA = Integer.parseInt(numberStrings[0]);
@@ -40,5 +52,10 @@ public class Triangle implements Calculator {
     @Override
     public boolean isSuitable(String name) {
         return name.equals("Triangle");
+    }
+
+    @Override
+    public String toString() {
+        return "Triangle";
     }
 }

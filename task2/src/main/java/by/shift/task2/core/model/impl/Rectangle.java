@@ -10,9 +10,21 @@ import java.util.Map;
 
 @Figure
 public class Rectangle implements Calculator {
+    private boolean hasTwoParameters(FileData fileData) {
+
+        String parameters = fileData.getParameters();
+        if (parameters == null) {
+            return false;
+        }
+
+        return parameters.trim().split(" ").length == 2;
+    }
 
     @Override
     public Result calculate(FileData fileData) {
+        if (!hasTwoParameters(fileData)){
+            throw new RuntimeException("Circle should have only two parameters");
+        }
         String[] numberStrings = fileData.getParameters().split(" ");
 
         int sideA = Integer.parseInt(numberStrings[0]);
@@ -34,5 +46,10 @@ public class Rectangle implements Calculator {
     @Override
     public boolean isSuitable(String name) {
         return name.equals("Rectangle");
+    }
+
+    @Override
+    public String toString() {
+        return "Rectangle";
     }
 }
