@@ -4,12 +4,9 @@ import by.shift.task2.core.model.FileData;
 import by.shift.task2.core.model.Result;
 import by.shift.task2.core.model.annotation.Figure;
 import by.shift.task2.core.model.Calculator;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Slf4j
 @Figure
 public class Circle implements Calculator {
 

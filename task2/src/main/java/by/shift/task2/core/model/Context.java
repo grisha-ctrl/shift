@@ -1,4 +1,5 @@
 package by.shift.task2.core.model;
+
 import by.shift.task2.core.model.annotation.Figure;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -16,11 +17,12 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Context {
     private static final List<Calculator> FIGURES = new ArrayList<>();
-    public static List<Calculator> getFigures(){
+
+    public static List<Calculator> getFigures() {
         return FIGURES;
     }
 
-    public static String getPackageName(File child){
+    public static String getPackageName(File child) {
         String packageName = null;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(child))) {
@@ -34,8 +36,9 @@ public class Context {
             }
         } catch (IOException e) {
             log.error(e.getMessage());
+            throw new RuntimeException(e.getMessage(), e.getCause());
         }
-        return packageName + "." + child.getName().substring(0, child.getName().length() -5);
+        return packageName + "." + child.getName().substring(0, child.getName().length() - 5);
     }
 
     public static void setUp(File dir) {
@@ -44,14 +47,14 @@ public class Context {
         try {
             if (directoryListing != null) {
                 for (File child : directoryListing) {
-                    if (child.isDirectory()){
+                    if (child.isDirectory()) {
                         setUp(child);
                     } else {
                         Class<?> clazz = Class.forName(getPackageName(child));
-                        if (clazz.isAnnotationPresent(Figure.class)){
+                        if (clazz.isAnnotationPresent(Figure.class)) {
                             Constructor<?> constructor = clazz.getDeclaredConstructor();
                             Object object = constructor.newInstance();
-                            if ( object instanceof Calculator){
+                            if (object instanceof Calculator) {
                                 log.info("Add object to result " + object);
                                 result.add((Calculator) object);
                             }
@@ -60,8 +63,7 @@ public class Context {
                 }
             }
             FIGURES.addAll(result);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
     }

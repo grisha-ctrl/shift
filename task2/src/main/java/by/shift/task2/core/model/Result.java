@@ -14,9 +14,13 @@ public class Result {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("Figure: ").append(name).append(System.lineSeparator());
+        result.append("Figure: ").append(name)
+                .append(System.lineSeparator());
 
-        map.forEach((key, value) -> result.append(System.lineSeparator()).append(key).append(": ").append(value).append(System.lineSeparator()));
+        map.forEach((key, value) -> result.append(System.lineSeparator())
+                .append(key).append(": ")
+                .append(value)
+                .append(System.lineSeparator()));
 
         return result.toString();
     }
