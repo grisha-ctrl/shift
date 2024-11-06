@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'ru.cft'
+group 'by.shift'
 
 repositories {
     mavenCentral()
