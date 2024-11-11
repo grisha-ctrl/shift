@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class Main {
     private static final int MAX_TABLE_SIZE = 32;
-    private static final int MIN_TABLE_SIZE = 0;
-    private static final String INDENTION = "%{0}s";
-    private static final String INNER_INDENTION = "|%{0}s";
+    private static final int MIN_TABLE_SIZE = 1;
+    private static final String INDENTION = "%{0}d";
+    private static final String INNER_INDENTION = "|%{0}d";
     private static int firstColumnIndentionSize = 0;
 
     public static void main(String[] args) {
@@ -27,9 +27,8 @@ public class Main {
 
                 if (scanner.hasNextInt()) {
                     tableSize = scanner.nextInt();
-
                     if (tableSize > MAX_TABLE_SIZE || tableSize < MIN_TABLE_SIZE) {
-                        System.out.println("Invalid multiplication table size, enter a number between 0 and 32.");
+                        System.out.println("Invalid multiplication table size, enter a number between 1 and 32.");
                     } else {
                         validInput = true;
                     }
@@ -43,6 +42,7 @@ public class Main {
     }
 
     private static void createMultiplicationTable(int maxValueCellSize, int tableSize) {
+        int adjustedWidth = Math.max(1, maxValueCellSize - 1);
         String firstColumnSeparator = buildFirstColumn();
         String rowSeparator = firstColumnSeparator + buildRowSeparator(maxValueCellSize, tableSize);
 
@@ -50,7 +50,7 @@ public class Main {
 
         System.out.println(rowSeparator);
         for (int rowNumber = 1; rowNumber <= tableSize; rowNumber++) {
-            System.out.printf(MessageFormat.format(INDENTION, firstColumnIndentionSize), rowNumber);
+            System.out.printf(MessageFormat.format(INDENTION, adjustedWidth), rowNumber);
             for (int columnNumber = 1; columnNumber <= tableSize; columnNumber++) {
                 System.out.printf(MessageFormat.format(INNER_INDENTION, maxValueCellSize), (rowNumber * columnNumber));
             }
@@ -60,7 +60,11 @@ public class Main {
     }
 
     private static String buildFirstColumn() {
-        return "-".repeat(firstColumnIndentionSize) + "+";
+        if (firstColumnIndentionSize > 0){
+            return "-".repeat(firstColumnIndentionSize) + "+";
+        }else {
+            return "-+";
+        }
     }
 
     private static String buildRowSeparator(int maxValueCellSize, int tableSize) {
@@ -78,11 +82,11 @@ public class Main {
     }
 
     private static void createHeader(int maxValueCellSize, int tableSize) {
-        System.out.printf(MessageFormat.format(INDENTION, firstColumnIndentionSize), "");
+        int adjustedWidth = Math.max(1, maxValueCellSize - 1);
+        System.out.printf("%" + adjustedWidth + "s", " ");
         for (int columnNumber = 1; columnNumber <= tableSize; columnNumber++) {
             System.out.printf(MessageFormat.format(INNER_INDENTION, maxValueCellSize), columnNumber);
         }
         System.out.println();
     }
 }
-
