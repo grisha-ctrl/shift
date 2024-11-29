@@ -1,2 +1,4 @@
 rootProject.name = 'shift'
 include 'task1'
+include 'minesweeper'
+
