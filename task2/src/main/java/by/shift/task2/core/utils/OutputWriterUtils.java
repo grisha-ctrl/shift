@@ -1,6 +1,6 @@
 package by.shift.task2.core.utils;
 
-import by.shift.task2.core.model.Result;
+import by.shift.task2.core.model.Figure;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +8,8 @@ import java.io.FileWriter;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class OutputWriter {
-    public static void writeToFile(String args, Result result) {
+public class OutputWriterUtils {
+    public static void writeToFile(String args, Figure result) {
         try (FileWriter writer = new FileWriter(args)){
             writer.write(String.valueOf(result));
         } catch (Exception e) {

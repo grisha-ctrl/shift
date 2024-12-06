@@ -12,7 +12,7 @@ import java.io.IOException;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DataReaderUtils {
     public static FileData read(String filePath) {
-        FileData fileData = FileData.builder().build();
+        FileData fileData;
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String type = reader.readLine();
             String parameters = reader.readLine();

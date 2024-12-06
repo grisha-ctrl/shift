@@ -1,52 +1,45 @@
 package by.shift.task2.core.model.impl;
 
-import by.shift.task2.core.model.Calculator;
 import by.shift.task2.core.model.FileData;
-import by.shift.task2.core.model.Result;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 class TriangleTest {
-
     @Test
     void calculate() {
         FileData fileData = FileData.builder()
                 .type("Triangle")
                 .parameters("3 4 5")
                 .build();
-        Map<String, String> map = new LinkedHashMap<>();
-        map.put("Площадь", "6.0");
-        map.put("Периметр", "12.0");
-        map.put("Сторона А и противолежащий угол", "3 0.6435011087932843");
-        map.put("Сторона B и противолежащий угол", "4 0.9272952180016123");
-        map.put("Сторона C и противолежащий угол", "5 1.5707963267948966");
-        Result expected = new Result("Треугольник", map);
-        Calculator triangle = new Triangle();
-        Result actual = triangle.calculate(fileData);
-        Assertions.assertThat(actual).isEqualToComparingFieldByField(expected);
-    }
 
-    @Test
-    void isSuitable() {
-        FileData fileData = FileData.builder()
-                .type("Triangle")
-                .parameters("3 4 5")
-                .build();
-        Calculator rectangle = new Rectangle();
-        boolean actual = rectangle.isSuitable(fileData.getType());
-        Assertions.assertThat(actual).isEqualTo(true);
-    }
+        double square = 6;
+        double perimeter = 12;
+        double sideA = 3;
+        double sideB = 4;
+        double sideC = 5;
+        double cornerA = 0.6435011087932843;
+        double cornerB = 0.9272952180016123;
+        double cornerC = 1.5707963267948966;
 
-    @Test
-    void isNotSuitable(){
-        FileData fileData = FileData.builder()
-                .type("Circle")
-                .parameters("3 4 5")
-                .build();
-        Calculator rectangle = new Rectangle();
-        boolean actual = rectangle.isSuitable(fileData.getType());
-        Assertions.assertThat(actual).isEqualTo(false);
+        Triangle triangle = new Triangle();
+        triangle.calculate(fileData);
+
+        double actualSideA = triangle.getSideA();
+        double actualSideB = triangle.getSideB();
+        double actualSideC = triangle.getSideC();
+        double actualPerimeter = triangle.getPerimeter();
+        double actualSquare = triangle.getSquare();
+        double actualCornerA = triangle.getCornerA();
+        double actualCornerB = triangle.getCornerB();
+        double actualCornerC = triangle.getCornerC();
+
+        Assertions.assertThat(actualSideA).isEqualTo(sideA);
+        Assertions.assertThat(actualSideB).isEqualTo(sideB);
+        Assertions.assertThat(actualSideC).isEqualTo(sideC);
+        Assertions.assertThat(actualPerimeter).isEqualTo(perimeter);
+        Assertions.assertThat(actualSquare).isEqualTo(square);
+        Assertions.assertThat(actualCornerA).isEqualTo(cornerA);
+        Assertions.assertThat(actualCornerB).isEqualTo(cornerB);
+        Assertions.assertThat(actualCornerC).isEqualTo(cornerC);
     }
 }

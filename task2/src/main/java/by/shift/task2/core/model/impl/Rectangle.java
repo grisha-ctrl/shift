@@ -1,55 +1,43 @@
 package by.shift.task2.core.model.impl;
 
+import by.shift.task2.core.model.Figure;
 import by.shift.task2.core.model.FileData;
-import by.shift.task2.core.model.Result;
-import by.shift.task2.core.model.annotation.Figure;
-import by.shift.task2.core.model.Calculator;
+import lombok.Getter;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+@Getter
+public class Rectangle implements Figure {
 
-@Figure
-public class Rectangle implements Calculator {
-    private boolean hasTwoParameters(FileData fileData) {
+    String name = "Rectangle";
 
-        String parameters = fileData.getParameters();
-        if (parameters == null) {
-            return false;
-        }
+    double perimeter;
+    double square;
+    double diagonal;
 
-        return parameters.trim().split(" ").length == 2;
-    }
+    int sideB;
+    int sideA;
 
     @Override
-    public Result calculate(FileData fileData) {
-        if (!hasTwoParameters(fileData)){
-            throw new RuntimeException("Circle should have only two parameters");
-        }
+    public void calculate(FileData fileData) {
+
         String[] numberStrings = fileData.getParameters().split(" ");
 
-        int sideA = Integer.parseInt(numberStrings[0]);
-        int sideB = Integer.parseInt(numberStrings[1]);
+        sideA = Integer.parseInt(numberStrings[0]);
+        sideB = Integer.parseInt(numberStrings[1]);
 
-        double perimeter = (sideA * 2) + (sideB * 2);
-        double square = sideA * sideB;
-        double diagonal = Math.sqrt(sideA * sideA + sideB * sideB);
-
-        Map<String, String> map = new LinkedHashMap<>();
-        map.put("Square", square + " sq. mm");
-        map.put("Perimeter", perimeter + " mm");
-        map.put("Side A", sideA + " mm");
-        map.put("Side B", sideB + " mm");
-        map.put("Diagonal", diagonal + " mm");
-        return new Result("Rectangle", map);
-    }
-
-    @Override
-    public boolean isSuitable(String name) {
-        return name.equals("Rectangle");
+        perimeter = (sideA * 2) + (sideB * 2);
+        square = sideA * sideB;
+        diagonal = Math.sqrt(sideA * sideA + sideB * sideB);
     }
 
     @Override
     public String toString() {
-        return "Rectangle";
+        return "Figure: " + name +
+                System.lineSeparator() +
+                "Side A " + sideA + " mm" + System.lineSeparator() +
+                "Side B " + sideB + " mm" + System.lineSeparator() +
+                "Square " + square + " sq. mm" + System.lineSeparator() +
+                "Perimeter " + square + " sq. mm" + System.lineSeparator() +
+                "Diagonal " + diagonal + " mm";
     }
+
 }

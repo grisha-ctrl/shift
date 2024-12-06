@@ -12,7 +12,7 @@ class DataReaderUtilsTest {
                 .type("Triangle")
                 .parameters("3 4 5")
                 .build();
-        FileData actual = DataReaderUtils.read("src/test/java/by/shift/task2/core/TestFile");
+        FileData actual = DataReaderUtils.read("src/test/resources/TestFile");
         Assertions.assertThat(actual).isEqualToComparingFieldByField(expected);
     }
 }
