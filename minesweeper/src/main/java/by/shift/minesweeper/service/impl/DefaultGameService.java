@@ -3,28 +3,28 @@ package by.shift.minesweeper.service.impl;
 import by.shift.minesweeper.model.Cell;
 import by.shift.minesweeper.model.Game;
 import by.shift.minesweeper.service.GameService;
+import by.shift.minesweeper.singleton.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 @Service
 public class DefaultGameService implements GameService {
-
     private static final Logger log = LoggerFactory.getLogger(DefaultGameService.class);
-    private Game game;
 
     @Override
     public Game startNewGame() {
-        game = new Game("1", 10, 10, 10);
+        Game game = new Game(generateId(), 10, 10, 10);
+        Cache.getGameCache().addGame(game);
         log.info("Создана игра с фиксированными параметрами");
         return game;
     }
 
     @Override
     public Game revealCell(String id, int row, int col) {
-
+        Game game = Cache.getGameCache().getGame(id);
         log.info("Открываем клетку, строка {} столбец {}", row, col);
         if (game.isGameOver()) {
             return game;
@@ -34,28 +34,33 @@ public class DefaultGameService implements GameService {
 
         if (cell.isFlagged()) return game;
 
-        if (!isBoardInitialized()) {
-            placeMines(row, col);
-            calculateAdjacentMines();
+        if (!isBoardInitialized(game)) {
+            placeMines(game, row, col);
+            calculateAdjacentMines(game);
         }
 
         if (reveal(cell)) {
             game.setGameOver(true);
             log.info("Вы проиграли");
         } else if (cell.getAdjacentMines() == 0) {
-            revealAdjacentCells(row, col);
+            revealAdjacentCells(game, row, col);
         }
         return game;
     }
 
     @Override
     public Game toggleFlag(String id, int row, int col) {
-
+        Game game = Cache.getGameCache().getGame(id);
         if (game.isGameOver()) {
             return game;
         }
 
         Cell cell = game.getCell(row, col);
+
+        if (!isBoardInitialized(game)) {
+            placeMines(game, row, col);
+            calculateAdjacentMines(game);
+        }
 
         if (!cell.isRevealed()) {
             if (cell.isFlagged()) {
@@ -74,20 +79,20 @@ public class DefaultGameService implements GameService {
                 }
             }
         }
-        checkWinCondition();
+        checkWinCondition(game);
         if (game.isGameOver()) {
             log.info("Вы победили");
         }
         return game;
     }
 
-    private void placeMines(int firstRow, int firstCol) {
-        Random random = new Random();
+    private void placeMines(Game game, int firstRow, int firstCol) {
+        SecureRandom secureRandom = new SecureRandom();
         int minesPlaced = 0;
 
         while (minesPlaced < game.getMinesCount()) {
-            int row = random.nextInt(game.getRows());
-            int col = random.nextInt(game.getCols());
+            int row  = secureRandom.nextInt(game.getRows());
+            int col  = secureRandom.nextInt(game.getCols());
             if ((Math.abs(row - firstRow) <= 1 && Math.abs(col - firstCol) <= 1) || game.getCell(row, col).isMine()) {
                 continue;
             }
@@ -96,17 +101,17 @@ public class DefaultGameService implements GameService {
         }
     }
 
-    private void calculateAdjacentMines() {
+    private void calculateAdjacentMines(Game game) {
         for (int i = 0; i < game.getRows(); i++) {
             for (int j = 0; j < game.getCols(); j++) {
                 if (!game.getCell(i, j).isMine()) {
-                    game.getCell(i, j).setAdjacentMines(countAdjacentMines(i, j));
+                    game.getCell(i, j).setAdjacentMines(countAdjacentMines(game, i, j));
                 }
             }
         }
     }
 
-    private int countAdjacentMines(int row, int col) {
+    private int countAdjacentMines(Game game, int row, int col) {
         int mineCount = 0;
         int[] directions = {-1, 0, 1};
 
@@ -127,7 +132,7 @@ public class DefaultGameService implements GameService {
         return mineCount;
     }
 
-    private boolean isBoardInitialized() {
+    private boolean isBoardInitialized(Game game) {
         for (int i = 0; i < game.getRows(); i++) {
             for (int j = 0; j < game.getCols(); j++) {
                 if (game.getCell(i, j).isMine()) {
@@ -138,7 +143,7 @@ public class DefaultGameService implements GameService {
         return false;
     }
 
-    private boolean revealAdjacentCells(int row, int col) {
+    private boolean revealAdjacentCells(Game game, int row, int col) {
         boolean mineRevealed = false;
         int[] directions = {-1, 0, 1};
 
@@ -156,7 +161,7 @@ public class DefaultGameService implements GameService {
                         if (adjacentCell.isMine()) {
                             mineRevealed = true;
                         } else if (adjacentCell.getAdjacentMines() == 0) {
-                            mineRevealed = revealAdjacentCells(newRow, newCol) || mineRevealed;
+                            mineRevealed = revealAdjacentCells(game, newRow, newCol) || mineRevealed;
                         }
                     }
                 }
@@ -165,7 +170,7 @@ public class DefaultGameService implements GameService {
         return mineRevealed;
     }
 
-    private void checkWinCondition() {
+    private void checkWinCondition(Game game) {
         boolean allMinesFlaggedCorrectly = true;
 
         for (int i = 0; i < game.getRows(); i++) {
@@ -182,6 +187,10 @@ public class DefaultGameService implements GameService {
         if (allMinesFlaggedCorrectly) {
             game.setGameOver(true);
         }
+    }
+    private String generateId(){
+        SecureRandom random = new SecureRandom();
+        return String.valueOf(random.nextInt(1000000));
     }
 
     public boolean reveal(Cell cell) {

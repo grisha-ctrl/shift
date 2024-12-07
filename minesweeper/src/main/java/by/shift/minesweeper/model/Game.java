@@ -2,10 +2,10 @@ package by.shift.minesweeper.model;
 
 
 public class Game {
-    private final String id;
     private final int rows;
     private final int cols;
     private final int minesCount;
+    private String id;
     private int flagCount;
     private int flaggedMines;
     private Cell[][] board;
@@ -24,6 +24,12 @@ public class Game {
         initializeBoard();
     }
 
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
     public boolean isGameOver() {
         return gameOver;
     }
