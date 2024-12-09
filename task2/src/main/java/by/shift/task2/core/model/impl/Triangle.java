@@ -43,7 +43,7 @@ public class Triangle implements Figure {
 
     @Override
     public String toString() {
-        return "Figure: " + name +
+        return "Figure: " + name + System.lineSeparator() +
                 "Side A " + sideA + " mm " + "and the opposite angle: " + cornerA + " degrees" + System.lineSeparator() +
                 "Side B " + sideB + " mm " + "and the opposite angle: " + cornerB + " degrees" + System.lineSeparator() +
                 "Side C " + sideC + " mm " + "and the opposite angle: " + cornerC + " degrees" + System.lineSeparator() +

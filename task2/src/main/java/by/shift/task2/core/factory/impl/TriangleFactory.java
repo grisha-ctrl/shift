@@ -4,7 +4,7 @@ import by.shift.task2.core.factory.FigureFactory;
 import by.shift.task2.core.model.Figure;
 import by.shift.task2.core.model.impl.Triangle;
 import by.shift.task2.core.model.FileData;
-import by.shift.task2.core.service.impl.TriangleValidationService;
+import by.shift.task2.core.service.impl.validation.TriangleValidationService;
 
 public class TriangleFactory implements FigureFactory {
 

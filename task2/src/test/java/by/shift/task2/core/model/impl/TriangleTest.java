@@ -17,9 +17,9 @@ class TriangleTest {
         double sideA = 3;
         double sideB = 4;
         double sideC = 5;
-        double cornerA = 0.6435011087932843;
-        double cornerB = 0.9272952180016123;
-        double cornerC = 1.5707963267948966;
+        double cornerA = 36.86989764584401;
+        double cornerB = 53.13010235415599;
+        double cornerC = 90.0;
 
         Triangle triangle = new Triangle();
         triangle.calculate(fileData);

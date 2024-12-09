@@ -1,18 +1,19 @@
-package by.shift.task2.core.service.impl;
+package by.shift.task2.core.service.impl.validation;
 
 import by.shift.task2.core.model.FileData;
 import by.shift.task2.core.service.FigureValidationService;
 
-public class CircleValidationService implements FigureValidationService {
+public class RectangleValidationService implements FigureValidationService {
 
     @Override
     public boolean isValidParameters(FileData fileData) {
         String[] parametersArray = getStrings(fileData);
 
         try {
-            int firstParameter = Integer.parseInt(parametersArray[0]);
+            int sideA = Integer.parseInt(parametersArray[0]);
+            int sideB = Integer.parseInt(parametersArray[1]);
 
-            if (firstParameter <= 0) {
+            if (sideA <= 0 || sideB <= 0 ) {
                 throw new RuntimeException("All sides of the rectangle must be positive integers.");
             }
         } catch (NumberFormatException e) {
@@ -21,6 +22,7 @@ public class CircleValidationService implements FigureValidationService {
 
         return true;
     }
+
     private static String[] getStrings(FileData fileData) {
         String parameters = fileData.getParameters();
         if (parameters == null) {
@@ -28,8 +30,8 @@ public class CircleValidationService implements FigureValidationService {
         }
         String[] parametersArray = fileData.getParameters().trim().split(" ");
 
-        if (parametersArray.length != 1) {
-            throw new RuntimeException("Circle should have exactly one parameters. Check the file for correctness of data.");
+        if (parametersArray.length != 2) {
+            throw new RuntimeException("Rectangle should have exactly two parameters. Check the file for correctness of data.");
         }
         return parametersArray;
     }

@@ -28,8 +28,7 @@ public class Circle implements Figure {
 
     @Override
     public String toString() {
-        return "Figure: " + name +
-                System.lineSeparator() +
+        return "Figure: " + name + System.lineSeparator() +
                 "Square " + square + " sq. mm" + System.lineSeparator() +
                 "Perimeter " + square + " sq. mm" + System.lineSeparator() +
                 "Diameter " + diameter + " mm" + System.lineSeparator() +

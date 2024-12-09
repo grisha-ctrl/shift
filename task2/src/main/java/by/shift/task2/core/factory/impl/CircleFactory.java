@@ -4,7 +4,7 @@ import by.shift.task2.core.factory.FigureFactory;
 import by.shift.task2.core.model.Figure;
 import by.shift.task2.core.model.impl.Circle;
 import by.shift.task2.core.model.FileData;
-import by.shift.task2.core.service.impl.CircleValidationService;
+import by.shift.task2.core.service.impl.validation.CircleValidationService;
 
 public class CircleFactory implements FigureFactory {
     @Override

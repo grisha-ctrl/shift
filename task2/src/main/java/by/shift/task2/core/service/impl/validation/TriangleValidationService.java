@@ -1,4 +1,4 @@
-package by.shift.task2.core.service.impl;
+package by.shift.task2.core.service.impl.validation;
 
 import by.shift.task2.core.model.FileData;
 import by.shift.task2.core.service.FigureValidationService;

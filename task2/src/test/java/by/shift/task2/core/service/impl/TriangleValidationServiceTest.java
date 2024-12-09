@@ -1,6 +1,8 @@
 package by.shift.task2.core.service.impl;
 
 import by.shift.task2.core.model.FileData;
+import by.shift.task2.core.service.impl.validation.RectangleValidationService;
+import by.shift.task2.core.service.impl.validation.TriangleValidationService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

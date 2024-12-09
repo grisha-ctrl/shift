@@ -4,7 +4,7 @@ import by.shift.task2.core.factory.FigureFactory;
 import by.shift.task2.core.model.Figure;
 import by.shift.task2.core.model.impl.Rectangle;
 import by.shift.task2.core.model.FileData;
-import by.shift.task2.core.service.impl.RectangleValidationService;
+import by.shift.task2.core.service.impl.validation.RectangleValidationService;
 
 public class RectangleFactory implements FigureFactory {
     @Override

@@ -31,8 +31,7 @@ public class Rectangle implements Figure {
 
     @Override
     public String toString() {
-        return "Figure: " + name +
-                System.lineSeparator() +
+        return "Figure: " + name + System.lineSeparator() +
                 "Side A " + sideA + " mm" + System.lineSeparator() +
                 "Side B " + sideB + " mm" + System.lineSeparator() +
                 "Square " + square + " sq. mm" + System.lineSeparator() +
