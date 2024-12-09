@@ -24,7 +24,20 @@ public class DefaultGameService implements GameService {
 
     @Override
     public Game revealCell(String id, int row, int col) {
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("Game ID не может быть null или empty.");
+        }
+
+        if (!Cache.getGameCache().containsGame(id)){
+            throw new IllegalArgumentException("Не существует игры с таким id");
+        }
+
         Game game = Cache.getGameCache().getGame(id);
+
+        if (row < 0 || row >= game.getRows() || col < 0 || col >= game.getCols()){
+            throw new IllegalArgumentException("Координаты за пределами границ: row=" + row + ", col=" + col);
+        }
+
         log.info("Открываем клетку, строка {} столбец {}", row, col);
         if (game.isGameOver()) {
             return game;
@@ -50,10 +63,21 @@ public class DefaultGameService implements GameService {
 
     @Override
     public Game toggleFlag(String id, int row, int col) {
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("Game ID не может быть null или empty.");
+        }
+        if (!Cache.getGameCache().containsGame(id)){
+            throw new IllegalArgumentException("Не существует игры с таким id");
+        }
         Game game = Cache.getGameCache().getGame(id);
+
+        if (row < 0 || row >= game.getRows() || col < 0 || col >= game.getCols()) {
+            throw new IllegalArgumentException("Координаты за пределами границ: row=" + row + ", col=" + col);
+        }
         if (game.isGameOver()) {
             return game;
         }
+
 
         Cell cell = game.getCell(row, col);
 

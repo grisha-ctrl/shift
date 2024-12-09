@@ -20,6 +20,10 @@ public class Cache {
         return gameCache;
     }
 
+    public boolean containsGame(String gameId){
+        return cacheRepository.containsKey(gameId);
+    }
+
     public Game addGame(Game game) {
         return cacheRepository.put(game.getId(), game);
     }
