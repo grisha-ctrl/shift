@@ -2,13 +2,13 @@ package by.shift.minesweeper.singleton;
 
 import by.shift.minesweeper.model.Game;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Cache {
 
-    private static Cache gameCache;
-    private static final Map<String, Game> cacheRepository = new HashMap<>();
+    private static volatile Cache gameCache;
+    private static final Map<String, Game> cacheRepository = new ConcurrentHashMap<>();
 
     private Cache() {
     }
@@ -24,8 +24,8 @@ public class Cache {
         return cacheRepository.containsKey(gameId);
     }
 
-    public Game addGame(Game game) {
-        return cacheRepository.put(game.getId(), game);
+    public void addGame(Game game) {
+        cacheRepository.put(game.getId(), game);
     }
 
     public Game getGame(String id) {

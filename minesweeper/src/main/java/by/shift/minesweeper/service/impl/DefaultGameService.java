@@ -12,6 +12,7 @@ import java.security.SecureRandom;
 
 @Service
 public class DefaultGameService implements GameService {
+    private static final SecureRandom secureRandom = new SecureRandom();
     private static final Logger log = LoggerFactory.getLogger(DefaultGameService.class);
 
     @Override
@@ -24,19 +25,11 @@ public class DefaultGameService implements GameService {
 
     @Override
     public Game revealCell(String id, int row, int col) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("Game ID не может быть null или empty.");
-        }
-
-        if (!Cache.getGameCache().containsGame(id)){
-            throw new IllegalArgumentException("Не существует игры с таким id");
-        }
+        idValidation(id);
 
         Game game = Cache.getGameCache().getGame(id);
 
-        if (row < 0 || row >= game.getRows() || col < 0 || col >= game.getCols()){
-            throw new IllegalArgumentException("Координаты за пределами границ: row=" + row + ", col=" + col);
-        }
+        coordinatesValidation(game, row, col);
 
         log.info("Открываем клетку, строка {} столбец {}", row, col);
         if (game.isGameOver()) {
@@ -63,21 +56,15 @@ public class DefaultGameService implements GameService {
 
     @Override
     public Game toggleFlag(String id, int row, int col) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("Game ID не может быть null или empty.");
-        }
-        if (!Cache.getGameCache().containsGame(id)){
-            throw new IllegalArgumentException("Не существует игры с таким id");
-        }
+        idValidation(id);
+
         Game game = Cache.getGameCache().getGame(id);
 
-        if (row < 0 || row >= game.getRows() || col < 0 || col >= game.getCols()) {
-            throw new IllegalArgumentException("Координаты за пределами границ: row=" + row + ", col=" + col);
-        }
+        coordinatesValidation(game, row, col);
+
         if (game.isGameOver()) {
             return game;
         }
-
 
         Cell cell = game.getCell(row, col);
 
@@ -104,19 +91,31 @@ public class DefaultGameService implements GameService {
             }
         }
         checkWinCondition(game);
-        if (game.isGameOver()) {
-            log.info("Вы победили");
-        }
         return game;
     }
 
+    private void coordinatesValidation(Game game, int row, int col) {
+        if (row < 0 || row >= game.getRows() || col < 0 || col >= game.getCols()) {
+            throw new IllegalArgumentException("Координаты за пределами границ: row=" + row + ", col=" + col);
+        }
+    }
+
+    private void idValidation(String id) {
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("Game ID не может быть null или empty.");
+        }
+
+        if (!Cache.getGameCache().containsGame(id)) {
+            throw new IllegalArgumentException("Не существует игры с таким id");
+        }
+    }
+
     private void placeMines(Game game, int firstRow, int firstCol) {
-        SecureRandom secureRandom = new SecureRandom();
         int minesPlaced = 0;
 
         while (minesPlaced < game.getMinesCount()) {
-            int row  = secureRandom.nextInt(game.getRows());
-            int col  = secureRandom.nextInt(game.getCols());
+            int row = secureRandom.nextInt(game.getRows());
+            int col = secureRandom.nextInt(game.getCols());
             if ((Math.abs(row - firstRow) <= 1 && Math.abs(col - firstCol) <= 1) || game.getCell(row, col).isMine()) {
                 continue;
             }
@@ -195,26 +194,14 @@ public class DefaultGameService implements GameService {
     }
 
     private void checkWinCondition(Game game) {
-        boolean allMinesFlaggedCorrectly = true;
-
-        for (int i = 0; i < game.getRows(); i++) {
-            for (int j = 0; j < game.getCols(); j++) {
-                Cell cell = game.getCell(i, j);
-
-                if (!cell.isFlagged() && cell.isMine()) {
-                    allMinesFlaggedCorrectly = false;
-                }
-            }
-        }
-
-
-        if (allMinesFlaggedCorrectly) {
+        if (game.getFlaggedMines() == 10) {
+            log.info("Вы победили");
             game.setGameOver(true);
         }
     }
-    private String generateId(){
-        SecureRandom random = new SecureRandom();
-        return String.valueOf(random.nextInt(1000000));
+
+    private String generateId() {
+        return String.valueOf(secureRandom.nextInt(1000000));
     }
 
     public boolean reveal(Cell cell) {
