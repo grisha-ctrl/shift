@@ -9,9 +9,9 @@ public class Triangle implements Figure {
 
     String name = "Triangle";
 
-    int sideA;
-    int sideB;
-    int sideC;
+    double sideA;
+    double sideB;
+    double sideC;
 
     double cornerA;
     double cornerB;
@@ -34,9 +34,9 @@ public class Triangle implements Figure {
         double sqrt = halfPerimeter * ((halfPerimeter - sideA) * (halfPerimeter - sideB) * (halfPerimeter - sideC));
         square = Math.sqrt(sqrt);
 
-        cornerA = Math.toDegrees(Math.acos((double) ((sideB * sideB) + (sideC * sideC) - (sideA * sideA)) / (2 * sideB * sideC)));
-        cornerB = Math.toDegrees(Math.acos((double) ((sideA * sideA) + (sideC * sideC) - (sideB * sideB)) / (2 * sideA * sideC)));
-        cornerC = Math.toDegrees(Math.acos((double) ((sideB * sideB) + (sideA * sideA) - (sideC * sideC)) / (2 * sideB * sideA)));
+        cornerA = Math.toDegrees(Math.acos( ((sideB * sideB) + (sideC * sideC) - (sideA * sideA)) / (2 * sideB * sideC)));
+        cornerB = Math.toDegrees(Math.acos( ((sideA * sideA) + (sideC * sideC) - (sideB * sideB)) / (2 * sideA * sideC)));
+        cornerC = Math.toDegrees(Math.acos( ((sideB * sideB) + (sideA * sideA) - (sideC * sideC)) / (2 * sideB * sideA)));
 
     }
 

@@ -13,8 +13,8 @@ public class Rectangle implements Figure {
     double square;
     double diagonal;
 
-    int sideB;
-    int sideA;
+    double sideB;
+    double sideA;
 
     @Override
     public void calculate(FileData fileData) {
