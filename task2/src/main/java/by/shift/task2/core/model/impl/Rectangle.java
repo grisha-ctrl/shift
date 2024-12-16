@@ -29,14 +29,5 @@ public class Rectangle implements Figure {
         diagonal = Math.sqrt(sideA * sideA + sideB * sideB);
     }
 
-    @Override
-    public String toString() {
-        return "Figure: " + name + System.lineSeparator() +
-                "Side A " + sideA + " mm" + System.lineSeparator() +
-                "Side B " + sideB + " mm" + System.lineSeparator() +
-                "Square " + square + " sq. mm" + System.lineSeparator() +
-                "Perimeter " + square + " sq. mm" + System.lineSeparator() +
-                "Diagonal " + diagonal + " mm";
-    }
 
 }

@@ -26,12 +26,5 @@ public class Circle implements Figure {
         diameter = radius + radius;
     }
 
-    @Override
-    public String toString() {
-        return "Figure: " + name + System.lineSeparator() +
-                "Square " + square + " sq. mm" + System.lineSeparator() +
-                "Perimeter " + square + " sq. mm" + System.lineSeparator() +
-                "Diameter " + diameter + " mm" + System.lineSeparator() +
-                "Radius " + radius + " mm";
-    }
+
 }
